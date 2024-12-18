@@ -1,0 +1,61 @@
+section {
+  width: 98%;
+  margin: 1rem auto;
+  max-width: 150rem;
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+}
+
+textarea {
+  height: 20rem !important;
+}
+.role-cell {
+  width: 10%;
+}
+
+.rol-select {
+  width: 100%;
+  height: 100%;
+  margin-top: 1rem;
+}
+
+.consulta {
+  button {
+    width: 10%;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    border-top-right-radius: 8%;
+    border-bottom-right-radius: 8%;
+  }
+}
+
+.crear {
+  background-color: #009178;
+  color: white;
+}
+
+::ng-deep .snackbar-error {
+  div {
+    background-color: #f44336 !important;
+  }
+
+  button {
+    color: #fff !important;
+  }
+}
+
+::ng-deep .snackbar-success {
+  div {
+    background-color: #4caf50 !important;
+  }
+
+  button {
+    color: #fff !important;
+  }
+}

@@ -1,0 +1,37 @@
+.menu {
+  @apply bg-blue-500 w-1/6 rounded-none;
+  h2 {
+    font-weight: 500;
+  }
+}
+
+.botones {
+  button {
+    width: 90%;
+    font-size: 1.1rem;
+  }
+}
+
+.close {
+  background-color: #df3737 !important;
+}
+
+.mat-toolbar {
+  @apply bg-blue-300 shadow-xl;
+}
+
+h1 {
+  font-weight: 500 !important;
+  font-size: 2rem !important;
+}
+
+mat-chip {
+  span {
+    text-align: center !important;
+  }
+}
+
+.active-link {
+  background-color: #009178 !important; /* Color verde */
+  color: white !important;
+}

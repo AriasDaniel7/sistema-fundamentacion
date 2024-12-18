@@ -1,0 +1,30 @@
+h1 {
+  font-size: 3rem;
+  font-weight: 300;
+
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
+  }
+}
+
+::ng-deep .snackbar-error {
+  div {
+    background-color: #f44336 !important;
+  }
+
+  button {
+    color: #fff !important;
+  }
+}
+
+.contenedor {
+  width: 90%;
+  max-width: 40rem;
+  margin: 2rem auto;
+}
+
+button {
+  height: 3.5rem;
+  font-size: 1.2rem;
+  @apply rounded-xl;
+}

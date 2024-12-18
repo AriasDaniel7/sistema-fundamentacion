@@ -1,0 +1,141 @@
+<section>
+  <h2>Crear proyecto:</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-full mb-2">
+      <mat-label>Nombre:</mat-label>
+      <input
+        formControlName="name"
+        type="text"
+        matInput
+        placeholder="Ej. Proyecto1..."
+      />
+      @if(name?.hasError('required')) {
+      <mat-error>El nombre es requerido</mat-error>
+      } @if(name?.hasError('minlength')) {
+      <mat-error>El nombre debe tener al menos 3 caracteres</mat-error>
+      }@if(name?.hasError('maxlength')) {
+      <mat-error>El nombre debe tener menos de 150 caracteres</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Descripción:</mat-label>
+      <textarea
+        formControlName="description"
+        matInput
+        placeholder="Ej. Esto es una breve descripcion..."
+      ></textarea>
+      @if(description?.hasError('required')) {
+      <mat-error>La descripción es requerida</mat-error>
+      } @if(description?.hasError('minlength')) {
+      <mat-error>La descripción debe tener al menos 3 caracteres</mat-error>
+      }
+    </mat-form-field>
+
+    <h2>Crear usuarios del proyecto (Opcional):</h2>
+    <div class="flex justify-center consulta">
+      <mat-form-field class="w-full">
+        <mat-label>Nombre de usuario:</mat-label>
+        <input
+          #busqueda
+          type="text"
+          matInput
+          placeholder="Ej. juan68..."
+          (keydown.enter)="$event.preventDefault(); search(busqueda.value)"
+        />
+      </mat-form-field>
+      <button mat-fab extended type="button" (click)="search(busqueda.value)">
+        <span>Buscar</span>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    @if(filtersUsers.length > 0){
+    <h3>Seleccionar usuarios (Opcional):</h3>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+            [aria-label]="checkboxLabel()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="onCheckboxChange($event, row)"
+            [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef>Usuario:</th>
+        <td mat-cell *matCellDef="let element">{{ element.userName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fullName">
+        <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+        <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Correo:</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Rol:</th>
+        <td mat-cell *matCellDef="let element" class="role-cell">
+          <div class="rol-select">
+            <mat-form-field (click)="$event.stopPropagation()">
+              <mat-label>Rol:</mat-label>
+              <mat-select
+                (selectionChange)="onRoleChange($event, element)"
+                [value]="'USER'"
+              >
+                @for (role of roles; track $index) {
+                <mat-option [value]="role.name">{{ role.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="toggleRow(row)"
+      ></tr>
+    </table>
+
+    }@else {
+    <mat-chip class="w-full">No se encontraron usuarios...</mat-chip>
+    } @if(selectedUsers.length > 0){
+    <h3>Usuarios seleccionados:</h3>
+    <div class="flex flex-wrap gap-2">
+      @for (userSelect of selectedUsers; track $index) {
+      <mat-chip-row>
+        {{ userSelect.userName }}
+        <button matChipRemove (click)="remove(userSelect)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+      }@empty {<mat-chip class="w-full"
+        >No hay usuarios seleccionados...</mat-chip
+      >}
+    </div>
+    }
+    <div class="mt-4 flex justify-end">
+      <button class="crear" mat-fab extended type="submit">
+        <span>Crear proyecto</span>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </form>
+</section>

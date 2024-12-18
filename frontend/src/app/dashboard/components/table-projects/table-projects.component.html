@@ -1,0 +1,58 @@
+@if(projects.length > 0){
+
+<table mat-table [dataSource]="projects" class="mat-elevation-z8">
+  <ng-container matColumnDef="Nombre">
+    <th mat-header-cell *matHeaderCellDef>Nombre:</th>
+    <td mat-cell *matCellDef="let element">{{ element.project.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="Descripcion">
+    <th mat-header-cell *matHeaderCellDef>Descripción:</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.project.description }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Rol de Proyecto">
+    <th mat-header-cell *matHeaderCellDef class="rol-col">Rol de Proyecto</th>
+    <td mat-cell *matCellDef="let element" class="rol-col">
+      {{ element.role.name }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Acciones">
+    <th mat-header-cell *matHeaderCellDef class="accion-col">Acciones:</th>
+    <td mat-cell *matCellDef="let element" class="accion-col">
+      @if (element.role.name === 'ADMIN') {
+      <div class="flex gap-2 justify-center items-center">
+        <button
+          class="edit"
+          mat-fab
+          [routerLink]="['/panel/project', element.project.id]"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button class="delete" mat-fab (click)="onDelete(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      }@else {
+      <div class="flex gap-2 justify-center items-center">
+        <button
+          class="view"
+          mat-fab
+          [routerLink]="['/panel/project', element.project.id]"
+        >
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+}@else {
+<mat-chip class="w-full">No se encontraron proyectos...</mat-chip>
+}

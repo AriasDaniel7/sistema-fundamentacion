@@ -1,0 +1,48 @@
+<mat-drawer-container class="w-full h-screen">
+  <mat-drawer class="menu" mode="side" opened>
+    <h2 class="text-white text-center pt-4">Menú</h2>
+    <div class="w-full h-4/5 flex flex-col justify-center items-center botones">
+      <button
+        [routerLink]="['/panel/projects']"
+        routerLinkActive="active-link"
+        ariaCurrentWhenActive="page"
+        mat-fab
+        extended
+        type="submit"
+        class="bg-blue-500 text-white py-2 hover:bg-blue-100 mb-4"
+      >
+        Ver Proyectos
+      </button>
+      <button
+        [routerLink]="['/panel/project']"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+        mat-fab
+        extended
+        type="submit"
+        class="bg-blue-500 text-white py-2 hover:bg-blue-100 mb-4"
+      >
+        Crear Proyecto
+      </button>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar class="flex justify-between items-center">
+      <h1>Sistema de Fundamentación</h1>
+      <div class="flex gap-2">
+        <button mat-flat-button>
+          <span>{{ user?.userName }}</span>
+          <mat-icon>person</mat-icon>
+        </button>
+        <button class="close" mat-flat-button (click)="logout()">
+          <span>Cerrar Sesión</span>
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

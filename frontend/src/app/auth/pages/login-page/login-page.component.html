@@ -1,0 +1,44 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="bg-white contenedor p-8 rounded-lg shadow-2xl">
+    <h1 class="text-center text-gray-800">Sistema de Fundamentación</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-full mb-4" appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="userName"
+          placeholder="Ingrese su usuario"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="w-full mb-6" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          placeholder="Ingrese su contraseña"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        type="submit"
+        class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+      >
+        Iniciar Sesión
+      </button>
+    </form>
+  </div>
+</div>
